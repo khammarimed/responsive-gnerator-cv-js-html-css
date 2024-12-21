@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"rel="stylesheet"/>
+    <!-- Cropper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" />
+    <title>cv.tn</title>
+</head>
+<body>
+    <header class="navbar">
+       <h3><span><i class="fa fa-file" style="color: blue;" aria-hidden="true"></i></span> CV.TN</h3>
+        <button id="btn" onclick="imprimerDiv()"><b><i style="font-size: 28px;" class="fa fa-print" aria-hidden="true"></i> Générer CV</b></button>
+    </header>
+    <div class="parent">
+         <!-------------------formulaires----------------------------> 
+    <div class="formulaires" id="formulaires"> 
+      <fieldset>
+        
+        <h4 style="margin-bottom: 20px;">informations personnelle</h4>
+        <div class="klm">
+        <p style="margin-left: 1rem;color: #000;">Choisissez une photo*</p>
+        <div class="preview-container preview1" ><img src="photos.png" onclick="afchi_wra()" style="margin-bottom: 0.5rem; width: 8rem;height: 8rem; margin-top: 0rem;" id="previewImage1" alt="">
+          <div id="valimg" style="color: red;display:none ; margin-left: 15px;"> Veuillez Choisissez une photo</div>
+      </div>
+        <form action="" class="row g-3 needs-validation" novalidate>
+        <div class="row" style="width: 100%; display: grid;justify-content:right; grid-template-columns:1fr 1fr;margin-left: 0em;">
+            <div class="col">
+                <label for="nom">Nom et prénom*</label>
+                <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom et Prénom" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" title="Veuillez entrer uniquement des lettres et des espaces.">
+                <div class="invalid-feedback">Veuillez entrer votre nom et prénom valide</div>
+            </div>
+            <div class="col">
+                <label for="e-maile">E-maile*</label>
+                <input type="email" name="e-maile" id="e_maile" class="form-control" placeholder="e-maile">
+                <div class="invalid-feedback">Veuillez entrer une adresse email valide.</div>
+            </div>
+            <div class="col">
+            <label for="tel">numéro de telephone*</label>
+        <input type="tel" name="tel" id="tel" class="form-control" placeholder="+xxx xxxx.." required>
+        <div class="invalid-feedback">Veuillez entrer un numéro de téléphone valide sous la forme suivante : +xxx xxx...
+        </div>
+      </div>
+      <div class="col">
+      <label for="adresse">Adresse*</label>
+        <input type="text" name="adresse" class="form-control" placeholder="Adresse" id="adresse">
+      </div>
+          </div> 
+          <button class="btn btn-primary" style="display: none;" type="submit"></button>
+        </form>
+        
+        </fieldset>
+    <fieldset>
+    
+    <div id="nul"></div>
+        <h4 style="margin-left: 15px;">competences</h4>
+        <div class="klm">
+  <div style="padding: 10px 0 0 40px;width: 90%;" class="row" id="competence">
+    
+  </div>
+</div> 
+  <span><i class="fa fa-plus" id="addcompetence" onclick="addcompetence()" aria-hidden="true" > Ajouter un compétence</i>
+    <i class="fa fa-minus" onclick="removeCompetence()" aria-hidden="true"></i></span>
+    
+    <h4 style="margin-left: 15px;">langues</h4> 
+    <div class="klm">
+    <div style="padding: 10px 0 0 40px;width: 90%;" class="row" id="langue">
+      
+    </div>
+    </div>
+    <span><i class="fa fa-plus" id="addcompetence" onclick="addlangues()" aria-hidden="true" > Ajouter une langue</i>
+      <i class="fa fa-minus" onclick="removelangues()" aria-hidden="true"></i></span>
+  </fieldset>
+    <fieldset action="" style="padding: 10px 0 0 0px;" id="profile">
+        <h4>profile</h4>
+        <textarea name="p_profile" class="form-control" id="p_profile" style="width: 90%; height: 120px;" ></textarea>
+
+    </fieldset>
+    <h4>formations</h4>
+    <div class="form-container">
+      <form id="infoForm">
+          <div id="additionalFields"></div>
+         
+          <i class="fa fa-plus" id="addFormationButton"  aria-hidden="true" >Ajouter Formation</i>
+      </form>
+      <h4>Expériences professionnelle</h4>
+      <div id="experienceContainer"></div>
+    
+    <i class="fa fa-plus" id="addExperienceButton"  aria-hidden="true" >Ajouter une expérience professionnelle</i>
+    
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+
+
+    <!----------------------------------------------------------->
+    </div>
+        
+    <div class="cv" id="cv">
+
+    <!--------------------modele cv--------------------------------->
+    <div class="acv" id="acv">
+        <div class="prt" id="prt" >
+        
+        <div class="left" id="left">
+            <div class="preview-container image" id="preview_contenair">
+                <img id="preview-image" src="photos.png" onclick="afchi_wra()"/>
+              </div>
+            
+            <h2>Information petsonnell</h2>
+            <p id="nom1"><span><i class="fa fa-user-circle" aria-hidden="true"></i></span></p>
+            <p id="e_maile1"><span><i class="fa fa-envelope" aria-hidden="true"></i></span></p>
+            <p id="tel1"><span><i class="fa fa-phone" aria-hidden="true"></i></span></p>
+            <p id="adresse1"><span><i class="fa fa-home" aria-hidden="true"></i></span></p>
+            <h2>compétences</h2>
+   
+                <ul>
+                   <div id="competence_1"></div>
+                </ul>
+                <h2>langues</h2>
+                
+                <ul>
+                    <div id="langue_1"></div>
+                </ul>
+              
+                
+        </div>  
+        <div class="right" id="right">
+          <h2>Profile</h2><pre id="p_profile1" class="profile-content"></pre>
+          <div class="display-container">
+            <h2>Formations</h2>
+            <div id="displayAdditionalInfo">
+
+              <div class="ht">
+                <div class="ht1"><p style="font-size: 0.6em;padding-top: 0.6em;margin-left: -0.75em;color: #414141;"> de 08/05/2023 a 06/10/2024 </p></div>
+                <div class="ht2"><p><i class="fa fa-circle" aria-hidden="true"></i> formation  </p><p style="font-size: 0.6em; margin-left: 1.3em;">description</p></div>
+              </div>
+              </div>
+              <h2>Expérience professionnelle</h2>
+              <div id="experienceDisplayContainer">
+                <div class="experience-display">
+                  <div class="ht">
+                    <div class="ht1"><p style="font-size: 0.6em;padding-top: 0.6em;margin-left: -0.75em;color: #414141;"> de 08/05/2023 a 06/10/2024 </p><i style="font-size: 0.8em;" class="fa fa-building" aria-hidden="true"></i><i style="font-size: 0.66em;">entrepris </i></div>
+                    <div class="ht2"><p><i class="fa fa-circle" aria-hidden="true"></i> poste  </p>
+                      <p style="font-size: 0.6em; margin-left: 1.3em;">description</p></div>
+                  </div>
+              </div>
+              
+            </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      
+      
+
+      <!-----------------------crop----------------------------->
+
+      <div class="wrapper" style="display:none;" id="wrapper">
+        <i class="fa fa-times" aria-hidden="true" onclick="sup_wra()" style="position: relative; left: 100%; bottom: 100%; font-size: 33px; cursor: pointer;"></i>
+        <div class="container">
+          <div class="image-container">
+            <img id="image" />
+          </div>
+        </div>
+        <input type="file" id="file" accept="image/*" />
+        <label for="file">Choisissez une photo</label>
+        <div class="btns">
+          <button id="preview" onclick="sup_wra()" class="hide" style="width: 15.8em;height: 3em; background-color:green; border: 10px solid green;border-radius:5px ;">confirmer</button>
+        </div>
+      </div>
+
+
+
+    
+    <!----------------------------------------------------------->
+       
+    </div>
+    <div class="pcv">
+      <i class="fa fa-arrows-alt" style="margin-right:25%;" onclick="scrin()" aria-hidden="true"></i>
+      <select  style="border: 2px solid #000;" class="form-control" id="fontSelect">
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Arial">Arial</option>
+          <option value="Comic Sans MS">Comic Sans MS</option>
+          <option value="Tahoma">Tahoma</option>
+          <option value="Trebuchet MS">Trebuchet MS</option>
+          <option value="Impact">Impact</option>
+          <option value="Georgia">Georgia</option>    
+          <option value="Courier New">Courier New</option>
+      </select>
+      <i class="fa fa-plus" aria-hidden="true" onclick="font_talle('plus')"><b>T</b></i><i class="fa fa-minus" aria-hidden="true" onclick="font_talle('minus')"><b> T</b></i>
+      <i class="fa fa-search-plus" aria-hidden="true" onclick="zoom('z_plus')"></i><i class="fa fa-search-minus" aria-hidden="true" onclick="zoom('z_minus')"></i></div>
+    </div>
+    </div>
+    <script src="https://unpkg.com/cropperjs/dist/cropper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script src="crop.js"></script>
+</body>
+</html>
